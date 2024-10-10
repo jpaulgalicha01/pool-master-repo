@@ -1,0 +1,9 @@
+.home-banner {
+    background-color: rgba(0, 0, 0, 0.4);
+    background-image: url(../../Assets/images/home-banner.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: darken;
+    z-index: -1;
+  }
