@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../Class/GlobalContext";
+import img from "../Assets/images/Img";
 
 export default function Index({ children }) {
+  const { globalData } = useContext(GlobalContext);
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  console.log(globalData);
   return (
     <>
       <div className="bg-primary ">
@@ -24,16 +28,25 @@ export default function Index({ children }) {
             className="d-flex justify-content-between align-items-center py-3 shadow-sm "
             style={{ position: "sticky", top: "0", zIndex: "1" }}
           >
-            <div>images here</div>
+            <Link
+              to={"/"}
+              className="d-inline-flex link-body-emphasis text-decoration-none d-flex gap-2 align-items-center"
+            >
+              <img src={img.headerLogo} alt="logo" width={60} height={60} />
+              <p className="text-primary text-title-primary mb-0 fs-3">
+                Pool Master
+              </p>
+            </Link>
             <div className="d-flex gap-md-2 ga-1">
               <Link
                 to={"/checkout"}
                 className="btn btn-outline-none position-relative d-lg-none d-block "
               >
                 <i className="fa-solid fa-cart-shopping"></i>
+
                 <span className="ps-2 d-lg-block d-none">Checkout</span>
                 <span className="position-absolute top-0 start-20 translate-middle badge rounded-pill bg-danger">
-                  99+
+                  {globalData.length}
                   <span className="visually-hidden">Number Checkout</span>
                 </span>
               </Link>
@@ -45,64 +58,6 @@ export default function Index({ children }) {
               >
                 <i className="fa-solid fa-bars"></i>
               </Button>
-              {/* <button
-                className="btn btn-outline-none d-lg-none"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasResponsive"
-                aria-controls="offcanvasResponsive"
-              >
-                <i className="fa-solid fa-bars"></i>
-              </button> */}
-
-              {/* <div
-                className="offcanvas-lg offcanvas-top h-100"
-                id="offcanvasResponsive"
-                aria-labelledby="offcanvasResponsiveLabel"
-              >
-                <div className="offcanvas-body">
-                  <button
-                    type="button "
-                    className="btn-close d-lg-none d-block"
-                    data-bs-dismiss="offcanvas"
-                    data-bs-target="#offcanvasResponsive"
-                    aria-label="Close"
-                  ></button>
-                  <ul className="d-lg-flex d-grid nav col-12 col-md-auto mb-2 justify-content-start mb-md-0 gap-lg-2 gap-0 me-md-3 me-0">
-                    <li className="nav-item">
-                      <Link to={"/"} className="nav-link px-1">
-                        Home
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link
-                        to={"/shop?Categories=all"}
-                        className="nav-link px-1"
-                      >
-                        Shop
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link px-1">About Us</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link px-1">Contact Us</Link>
-                    </li>
-                  </ul>
-
-                  <Link
-                    to={"/checkout"}
-                    className="btn btn-primary position-relative d-lg-block d-none "
-                  >
-                    <i className="fa-solid fa-cart-shopping"></i>
-                    <span className="ps-2">Checkout</span>
-                    <span className="position-absolute top-0 start-20 translate-middle badge rounded-pill bg-danger">
-                      99+
-                      <span className="visually-hidden">Number Checkout</span>
-                    </span>
-                  </Link>
-                </div>
-              </div> */}
 
               <Offcanvas
                 show={show}
@@ -134,14 +89,25 @@ export default function Index({ children }) {
                     </li>
                     <li className="nav-item">
                       <Link
+                        to={"/company-overview"}
                         className="nav-link px-1"
                         onClick={() => handleClose()}
                       >
-                        About Us
+                        Company Overview
                       </Link>
                     </li>
                     <li className="nav-item">
                       <Link
+                        to={"/services"}
+                        className="nav-link px-1"
+                        onClick={() => handleClose()}
+                      >
+                        Services
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                      to={"/contact-us"}
                         className="nav-link px-1"
                         onClick={() => handleClose()}
                       >
@@ -157,7 +123,7 @@ export default function Index({ children }) {
                     <i className="fa-solid fa-cart-shopping"></i>
                     <span className="ps-2">Check out</span>
                     <span className="position-absolute top-0 start-20 translate-middle badge rounded-pill bg-danger">
-                      99+
+                      {globalData.length}
                       <span className="visually-hidden">Number Checkout</span>
                     </span>
                   </Link>

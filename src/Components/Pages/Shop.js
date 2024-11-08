@@ -1,30 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import img from "../../Assets/images/Img";
 import ShopChild from "./ShopChild";
+import ProductList from "../../Class/ProductList";
+import { removeComma } from "../../Class/ClsVaroiusFormula";
+import { ClsN2 } from "../../Class/ClsN2";
 
 export default function Shop() {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("Categories");
-
   const navigate = useNavigate();
-
   const [modalShow, setmodalShow] = useState(false);
+  const [data, setData] = useState([]);
+  const [selectedItemID, setSelectedItemID] = useState(null);
+  const [selectProductName, setSelectProductName] = useState(null);
+  const [selectProductCost, setSelectProductCost] = useState(0.0);
+  const[selectProductImg, setSelectProductImg] = useState("")
 
-  const sections = [
-    { name: "Product 1", price: 120.0, image: img.tempImage },
-    { name: "Product 2", price: 150.0, image: img.tempImage },
-    { name: "Product 3", price: 180.0, image: img.tempImage },
-    { name: "Product 4", price: 120.0, image: img.tempImage },
-    { name: "Product 5", price: 150.0, image: img.tempImage },
-    { name: "Product 6", price: 180.0, image: img.tempImage },
-    { name: "Product 1", price: 120.0, image: img.tempImage },
-    { name: "Product 2", price: 150.0, image: img.tempImage },
-    { name: "Product 3", price: 180.0, image: img.tempImage },
-    { name: "Product 4", price: 120.0, image: img.tempImage },
-    { name: "Product 5", price: 150.0, image: img.tempImage },
-    { name: "Product 6", price: 180.0, image: img.tempImage },
-  ];
+  useEffect(() => {
+    filter(category);
+  }, [category]);
+
+  const filter = (category) => {
+    if (category === "all") {
+      const uniqueProducts = Array.from(
+        new Set(ProductList.map((item) => item.ProductName))
+      ).map((ProductName) =>
+        ProductList.find((item) => item.ProductName === ProductName)
+      );
+      setData(uniqueProducts);
+    } else {
+      const filtered = ProductList.filter(
+        (item) => item.ProductCategory === category
+      ).filter(
+        (item, index, self) =>
+          index === self.findIndex((t) => t.ProductName === item.ProductName)
+      );
+      setData(filtered);
+    }
+  };
 
   const handleChangeCat = (e) => {
     const selectedTargetCategories = e.target.value;
@@ -34,7 +47,7 @@ export default function Shop() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row" style={{ minHeight: "80vh" }}>
+        <div className="row" style={{ minHeight: "85vh" }}>
           <div className="col-2 border-end pt-3 d-md-block d-none">
             <ul className="nav nav-pills flex-column ">
               <h5>Categories</h5>
@@ -48,84 +61,84 @@ export default function Shop() {
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=water-sports"}
+                  to={"/shop?Categories=swimming-pool-pump"}
                   className={`nav-link ${
-                    category === "water-sports" ? "active" : ""
+                    category === "swimming-pool-pump" ? "active" : ""
                   }`}
                 >
-                  Water Sports
+                  Swimming Pool Pump
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=home-improvement"}
+                  to={"/shop?Categories=swimming-pool-chemical"}
                   className={`nav-link ${
-                    category === "home-improvement" ? "active" : ""
+                    category === "swimming-pool-chemical" ? "active" : ""
                   }`}
                 >
-                  Home Improvement
+                  Swimming Pool Chemicals
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=laundry-household-care"}
+                  to={"/shop?Categories=swimming-pool-filter"}
                   className={`nav-link ${
-                    category === "laundry-household-care" ? "active" : ""
+                    category === "swimming-pool-filter" ? "active" : ""
                   }`}
                 >
-                  Laundry & Household Care
+                  Swimming Pool Filter
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=home-maintenance"}
+                  to={"/shop?Categories=swimming-pool-cleaning-tools"}
                   className={`nav-link ${
-                    category === "home-maintenance" ? "active" : ""
+                    category === "swimming-pool-cleaning-tools" ? "active" : ""
                   }`}
                 >
-                  Home Maintenance
+                  Swimming Pool Cleaning Tools
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=vacuum-cleaners-floor-care"}
+                  to={"/shop?Categories=swimming-pool-accessories"}
                   className={`nav-link ${
-                    category === "vacuum-cleaners-floor-care" ? "active" : ""
+                    category === "swimming-pool-accessories" ? "active" : ""
                   }`}
                 >
-                  Vacuum Cleaners & Floor Care
+                  Swimming Pool Accessories
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=power-tools"}
+                  to={"/shop?Categories=swimming-pool-spare-parts"}
                   className={`nav-link ${
-                    category === "power-tools" ? "active" : ""
+                    category === "swimming-pool-spare-parts" ? "active" : ""
                   }`}
                 >
-                  Power Tools
+                  Swimming Pool Spare Parts
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=home-appliance-parts-accessories"}
+                  to={"/shop?Categories=swimming-pool-underwater-lights"}
                   className={`nav-link ${
-                    category === "home-appliance-parts-accessories"
+                    category === "swimming-pool-underwater-lights"
                       ? "active"
                       : ""
                   }`}
                 >
-                  Home Appliance Parts & Accessories
+                  Swimming Pool Underwater Lights
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to={"/shop?Categories=others"}
+                  to={"/shop?Categories=other-swimming-pool-products"}
                   className={`nav-link ${
-                    category === "others" ? "active" : ""
+                    category === "other-swimming-pool-products" ? "active" : ""
                   }`}
                 >
-                  Others
+                  Other Swimming Pool Products
                 </Link>
               </li>
             </ul>
@@ -142,50 +155,66 @@ export default function Shop() {
                   value={category}
                 >
                   <option value="all">All</option>
-                  <option value="water-sports">Water Sports</option>
-                  <option value="home-improvement">Home Improvement</option>
-                  <option value="laundry-household-care">
-                    Laundry & Household Care
+                  <option value="swimming-pool-pump">Swimming Pool Pump</option>
+                  <option value="swimming-pool-chemical">
+                    Swimming Pool Chemicals
                   </option>
-                  <option value="home-maintenance">Home Maintenance</option>
-                  <option value="vacuum-cleaners-floor-care">
-                    Vacuum Cleaners & Floor Care
+                  <option value="swimming-pool-filter">
+                    Swimming Pool Filter
                   </option>
-                  <option value="power-tools">Power Tools</option>
-                  <option value="home-appliance-parts-accessories">
-                    Home Appliance Parts & Accessories
+                  <option value="swimming-pool-cleaning-tools">
+                    Swimming Pool Cleaning Tools
                   </option>
-                  <option value="others">Others</option>
+                  <option value="swimming-pool-accessories">
+                    Swimming Pool Accessories
+                  </option>
+                  <option value="swimming-pool-spare-parts">
+                    Swimming Pool Spare Parts
+                  </option>
+                  <option value="swimming-pool-underwater-lights">
+                    Swimming Pool Underwater Lights
+                  </option>
+                  <option value="other-swimming-pool-products">
+                    Other Swimming Pool Products
+                  </option>
                 </select>
               </div>
             </div>
             <div
               className="row px-2"
-              style={{ maxHeight: "70vh", overflowY: "auto" }}
+              style={{ maxHeight: "85vh", overflowY: "auto" }}
             >
               {/* Loop through the sections array to render product cards */}
-              {sections.map((section, index) => (
+              {data.map((res, index) => (
                 <div className="col-lg-4 col-md-6 col-12 py-2" key={index}>
-                  <div className="card shadow-sm">
-                    <div className="card-body d-grid justify-content-center">
+                  <div className="card shadow-sm" style={{ height: "450px" }}>
+                    <div className="card-body d-grid justify-content-center align-self-center">
                       <div>
                         <img
                           loading="lazy"
-                          src={section.image}
+                          src={require(`../../Assets/images/${res.ProductImg}.webp`)}
                           alt="product images"
-                          width={"250"}
-                          className="img-fluid text-center mb-2"
+                          width={"300"}
+                          className="img-fluid mb-2"
                         />
-                        <p>{section.name}</p>
+                        <p className="mb-0">{res.ProductName}</p>
                       </div>
                       <div className="d-flex justify-content-between align-items-center">
                         <p className="text-primary fs-4 m-0">
-                          ₱ {section.price.toFixed(2)}
+                          ₱ {ClsN2(Number(removeComma(res.ProductUCost)))}
                         </p>
                         <button
                           className="btn btn-primary btn-sm "
                           style={{ borderRadius: "10px" }}
-                          onClick={() => setmodalShow(!modalShow)}
+                          onClick={() => {
+                            setmodalShow(!modalShow);
+                            setSelectedItemID(res.ProductID);
+                            setSelectProductName(res.ProductName);
+                            setSelectProductImg(res.ProductImg);
+                            setSelectProductCost(
+                              ClsN2(Number(removeComma(res.ProductUCost)))
+                            );
+                          }}
                         >
                           Add Cart
                         </button>
@@ -197,8 +226,19 @@ export default function Shop() {
             </div>
           </div>
         </div>
-        <ShopChild modalShow={modalShow} setmodalShow={setmodalShow} />
       </div>
+      {modalShow ? (
+        <ShopChild
+          modalShow={modalShow}
+          setmodalShow={setmodalShow}
+          selectedItemID={selectedItemID}
+          selectProductName={selectProductName}
+          selectProductCost={selectProductCost}
+          selectProductImg={selectProductImg}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }
