@@ -7,6 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.text-title-primary {
+  font-family: "Titan One", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.text-title-secondary {
+  font-family: "Titan One", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
 .custom-width {
   width: 75%;
 }
@@ -15,4 +29,4 @@ body {
   .custom-width {
     width: 100%;
   }
-} 
+}

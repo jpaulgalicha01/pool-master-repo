@@ -10,9 +10,10 @@ const ClsModal = (props) => {
       size={props.size}
       backdrop={"static"}
       style={{ backgroundColor: props.backgroundColor }}
+      centered
     >
       <Modal.Header>
-        <Modal.Title>{props.title}</Modal.Title>
+        <Modal.Title className="fs-6">{props.title}</Modal.Title>
       </Modal.Header>
       <Form onSubmit={props.handleSubmit}>
         <Modal.Body>{props.children}</Modal.Body>
