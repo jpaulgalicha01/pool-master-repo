@@ -13,9 +13,6 @@ export default function Home() {
             data-aos-duration="900"
           >
             <div className="custom-width-75">
-              <p className="text-paragraph-secondary text-white text-lg-start text-center mb-0">
-                Export pool swimming pool tools
-              </p>
               <h1
                 className="text-title-primary text-white text-lg-start text-center"
                 style={{ fontSize: "calc(2.5vw + 2.5vh + 2.0vmin)" }}
